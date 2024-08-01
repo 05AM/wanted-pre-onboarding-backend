@@ -11,6 +11,11 @@ import lombok.Getter;
 public enum StatusCode {
 
     /**
+     * 200
+     */
+    UPDATE_SUCCESS(HttpStatus.CREATED, "리소스가 성공적으로 수정되었습니다."),
+
+    /**
      * 201
      */
     CREATE_SUCCESS(HttpStatus.CREATED, "리소스가 성공적으로 생성되었습니다."),
