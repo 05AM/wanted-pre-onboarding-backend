@@ -16,12 +16,12 @@ public class RecruitUpdateService {
 
     public void update(RecruitUpdateCommand command) {
         Recruit recruit = recruitRepository.findById(command.id());
-        recruit.update(
+        Recruit updated = recruit.update(
                 command.position(),
                 command.stack(),
                 command.content(),
                 command.compensation());
 
-        recruitRepository.save(recruit);
+        recruitRepository.save(updated);
     }
 }
