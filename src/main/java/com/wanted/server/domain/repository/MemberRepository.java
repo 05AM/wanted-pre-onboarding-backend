@@ -1,6 +1,6 @@
 package com.wanted.server.domain.repository;
 
-public interface UserRepository {
+public interface MemberRepository {
 
     boolean existById(Long id);
 }

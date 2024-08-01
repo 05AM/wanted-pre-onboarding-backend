@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record ApplyHistoryCreateCommand(
-        Long userId,
+        Long memberId,
         Long recruitId
 ) {
 }

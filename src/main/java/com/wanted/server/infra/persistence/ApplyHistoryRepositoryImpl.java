@@ -25,7 +25,7 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepository {
     }
 
     @Override
-    public boolean hasUserAlreadyApplied(Long userId, Long recruitId) {
-        return jpaApplyHistoryRepository.existsByUserIdAndRecruitId(userId, recruitId);
+    public boolean hasMemberAlreadyApplied(Long memberId, Long recruitId) {
+        return jpaApplyHistoryRepository.existsByMemberIdAndRecruitId(memberId, recruitId);
     }
 }

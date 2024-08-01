@@ -6,5 +6,5 @@ public interface ApplyHistoryRepository {
 
     void save(ApplyHistory applyHistory);
 
-    boolean hasUserAlreadyApplied(Long userId, Long recruitId);
+    boolean hasMemberAlreadyApplied(Long memberId, Long recruitId);
 }

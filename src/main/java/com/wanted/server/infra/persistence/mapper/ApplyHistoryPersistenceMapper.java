@@ -11,13 +11,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApplyHistoryPersistenceMapper {
 
-    private final UserPersistenceMapper userPersistenceMapper;
+    private final MemberPersistenceMapper memberPersistenceMapper;
     private final RecruitPersistenceMapper recruitPersistenceMapper;
 
     public ApplyHistoryEntity toEntity(ApplyHistory domain) {
         return ApplyHistoryEntity.builder()
                 .id(domain.getId())
-                .user(userPersistenceMapper.toEntity(domain.getUser()))
+                .member(memberPersistenceMapper.toEntity(domain.getMember()))
                 .recruit(recruitPersistenceMapper.toEntity(domain.getRecruit()))
                 .build();
     }

@@ -6,5 +6,5 @@ import com.wanted.server.infra.persistence.jpa.entity.ApplyHistoryEntity;
 
 public interface JpaApplyHistoryRepository extends JpaRepository<ApplyHistoryEntity, Long> {
 
-    boolean existsByUserIdAndRecruitId(Long userId, Long recruitId);
+    boolean existsByMemberIdAndRecruitId(Long memberId, Long recruitId);
 }

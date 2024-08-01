@@ -14,8 +14,8 @@ public class ApplyHistoryValidationService {
 
     private final ApplyHistoryRepository applyHistoryRepository;
 
-    public void validateUserAppliedAlready(Long userId, Long recruitId) {
-        if (applyHistoryRepository.hasUserAlreadyApplied(userId, recruitId)) {
+    public void validateUserAppliedAlready(Long memberId, Long recruitId) {
+        if (applyHistoryRepository.hasMemberAlreadyApplied(memberId, recruitId)) {
             throw new InvalidStateException(StatusCode.USER_ALREADY_APPLIED_ERROR);
         }
     }
