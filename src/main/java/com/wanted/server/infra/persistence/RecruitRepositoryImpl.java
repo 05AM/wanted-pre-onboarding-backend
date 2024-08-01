@@ -34,4 +34,11 @@ public class RecruitRepositoryImpl implements RecruitRepository {
 
         jpaRecruitRepository.save(recruitEntity);
     }
+
+    @Override
+    public void delete(Recruit recruit) {
+        RecruitEntity recruitEntity = mapper.toEntity(recruit);
+
+        jpaRecruitRepository.delete(recruitEntity);
+    }
 }

@@ -7,15 +7,14 @@ import com.wanted.server.domain.recruit.Recruit;
 public class RecruitStub {
 
     public static Recruit getRecruit() {
-        RecruitCreateCommand command = getRecruitCreateCommand();
-
-        return Recruit.create(
-                command.position(),
-                command.stack(),
-                command.content(),
-                command.compensation(),
-                command.companyId()
-        );
+        return Recruit.builder()
+                .id(1L)
+                .position("백엔드 개발자")
+                .stack("Spring Boot")
+                .content("백엔드 개발자를 모집합니다. 팀에 합류하여 함께 성장할 인재를 찾고 있습니다.")
+                .compensation(500000)
+                .companyId(1L)
+                .build();
     }
 
     public static RecruitCreateCommand getRecruitCreateCommand() {

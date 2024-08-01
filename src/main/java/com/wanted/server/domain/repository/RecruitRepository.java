@@ -7,4 +7,6 @@ public interface RecruitRepository {
     Recruit findById(Long id);
 
     void save(Recruit recruit);
+
+    void delete(Recruit recruit);
 }
