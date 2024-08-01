@@ -1,6 +1,8 @@
 package com.wanted.server.infra.persistence.jpa.entity;
 
 
+import com.wanted.server.common.model.BaseTimeEntity;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Getter
-public class RecruitEntity {
+public class RecruitEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,5 +37,4 @@ public class RecruitEntity {
     private String content;
 
     private Integer compensation;
-
 }
