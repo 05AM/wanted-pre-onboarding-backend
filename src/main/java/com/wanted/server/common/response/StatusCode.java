@@ -36,6 +36,11 @@ public enum StatusCode {
     USER_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "요청한 유저 정보를 찾을 수 없습니다."),
 
     /**
+     * 409
+     */
+    USER_ALREADY_APPLIED_ERROR(HttpStatus.CONFLICT, "이미 해당 채용 공고에 지원하셨습니다."),
+
+    /**
      * 500
      */
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부에서 에러가 발생하였습니다.");
