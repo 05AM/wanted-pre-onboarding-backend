@@ -2,10 +2,10 @@ package com.wanted.server.domain.recruit;
 
 import java.time.LocalDateTime;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
-@Builder
 @Getter
 public class Recruit {
 
@@ -17,6 +17,7 @@ public class Recruit {
     private LocalDateTime createdAt;
     private Long companyId;
 
+    @Builder(access = AccessLevel.PRIVATE)
     private Recruit(String position, String stack, String content, Integer compensation, Long companyId) {
         this.position = position;
         this.stack = stack;
