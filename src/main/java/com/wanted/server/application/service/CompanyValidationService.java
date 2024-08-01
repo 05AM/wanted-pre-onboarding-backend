@@ -16,7 +16,7 @@ public class CompanyValidationService {
 
     public void validateCompanyExist(Long companyId) {
         if (!companyRepository.isExist(companyId)) {
-            throw new NotExistException(StatusCode.COMPANY_NOT_FOUND);
+            throw new NotExistException(StatusCode.COMPANY_NOT_FOUND_ERROR);
         }
     }
 }

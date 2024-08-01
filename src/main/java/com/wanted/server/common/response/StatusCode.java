@@ -18,12 +18,12 @@ public enum StatusCode {
     /**
      * 400
      */
-    BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+    BAD_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
 
     /**
      * 404
      */
-    COMPANY_NOT_FOUND(HttpStatus.NOT_FOUND, "요청한 회사 정보를 찾을 수 없습니다."),
+    COMPANY_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "요청한 회사 정보를 찾을 수 없습니다."),
 
     /**
      * 500

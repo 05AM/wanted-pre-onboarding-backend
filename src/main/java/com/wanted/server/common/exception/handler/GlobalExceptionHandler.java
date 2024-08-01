@@ -59,7 +59,7 @@ public class GlobalExceptionHandler {
         });
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponseDto.of(StatusCode.BAD_REQUEST, errors));
+                .body(ApiResponseDto.of(StatusCode.BAD_REQUEST_ERROR, errors));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -74,6 +74,6 @@ public class GlobalExceptionHandler {
         });
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponseDto.of(StatusCode.BAD_REQUEST, errors));
+                .body(ApiResponseDto.of(StatusCode.BAD_REQUEST_ERROR, errors));
     }
 }
