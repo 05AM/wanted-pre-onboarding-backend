@@ -44,9 +44,13 @@ public class RecruitController {
     private final RecruitUpdateService recruitUpdateService;
     private final RecruitDeleteService recruitDeleteService;
 
+    @Operation(summary = "채용공고 상세 조회")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content),
+            @ApiResponse(responseCode = "404", description = "존재하지 않는 채용공고", content = @Content)})
     @GetMapping("/{recruitId}")
     public ResponseEntity<ApiResponseDto<RecruitDetailResponse>> getDetail(
-            @PathVariable(name = "recruitId") @NotNull Long recruitId
+            @Parameter @PathVariable(name = "recruitId") @NotNull Long recruitId
     ) {
         RecruitDetailResponse response = recruitQueryService.getDetail(recruitId);
 
