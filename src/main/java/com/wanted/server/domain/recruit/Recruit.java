@@ -20,10 +20,11 @@ public class Recruit {
     private LocalDateTime createdAt;
     private Long companyId;
 
-    @Builder(access = AccessLevel.PRIVATE)
-    private Recruit(String position, String stack, String content, Integer compensation, Long companyId) {
+    @Builder
+    private Recruit(Long id, String position, String stack, String content, Integer compensation, Long companyId) {
         validateCompensationMin(compensation);
 
+        this.id = id;
         this.position = position;
         this.stack = stack;
         this.content = content;
@@ -38,6 +39,17 @@ public class Recruit {
                 .content(content)
                 .compensation(compensation)
                 .companyId(companyId)
+                .build();
+    }
+
+    public Recruit update(String position, String stack, String content, Integer compensation) {
+        return Recruit.builder()
+                .id(this.id)
+                .position(position)
+                .stack(stack)
+                .content(content)
+                .compensation(compensation)
+                .companyId(this.companyId)
                 .build();
     }
 

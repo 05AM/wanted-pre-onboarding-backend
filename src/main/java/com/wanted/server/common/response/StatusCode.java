@@ -25,6 +25,7 @@ public enum StatusCode {
      * 404
      */
     COMPANY_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "요청한 회사 정보를 찾을 수 없습니다."),
+    RECRUIT_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "요청한 채용공고 정보를 찾을 수 없습니다."),
 
     /**
      * 500

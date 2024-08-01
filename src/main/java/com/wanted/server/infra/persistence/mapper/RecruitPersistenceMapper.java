@@ -21,4 +21,15 @@ public class RecruitPersistenceMapper {
                         .build())
                 .build();
     }
+
+    public Recruit toDomain(RecruitEntity entity) {
+        return Recruit.builder()
+                .id(entity.getId())
+                .position(entity.getPosition())
+                .stack(entity.getStack())
+                .content(entity.getContent())
+                .compensation(entity.getCompensation())
+                .companyId(entity.getCompany().getId())
+                .build();
+    }
 }
