@@ -13,8 +13,9 @@ public enum StatusCode {
     /**
      * 200
      */
-    UPDATE_SUCCESS(HttpStatus.CREATED, "리소스가 성공적으로 수정되었습니다."),
-    DELETE_SUCCESS(HttpStatus.CREATED, "리소스가 성공적으로 삭제되었습니다."),
+    GET_SUCCESS(HttpStatus.OK, "조회에 성공했습니다."),
+    UPDATE_SUCCESS(HttpStatus.OK, "리소스가 성공적으로 수정되었습니다."),
+    DELETE_SUCCESS(HttpStatus.OK, "리소스가 성공적으로 삭제되었습니다."),
 
     /**
      * 201
