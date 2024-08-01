@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 import com.wanted.server.common.exception.model.ValidationException;
 import com.wanted.server.common.response.StatusCode;
+import com.wanted.server.domain.company.Company;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -18,10 +18,10 @@ public class Recruit {
     private String content;
     private Integer compensation;
     private LocalDateTime createdAt;
-    private Long companyId;
+    private Company company;
 
     @Builder
-    private Recruit(Long id, String position, String stack, String content, Integer compensation, Long companyId) {
+    private Recruit(Long id, String position, String stack, String content, Integer compensation, Company company) {
         validateCompensationMin(compensation);
 
         this.id = id;
@@ -29,7 +29,7 @@ public class Recruit {
         this.stack = stack;
         this.content = content;
         this.compensation = compensation;
-        this.companyId = companyId;
+        this.company = company;
     }
 
     public static Recruit create(String position, String stack, String content, Integer compensation, Long companyId) {
@@ -38,7 +38,9 @@ public class Recruit {
                 .stack(stack)
                 .content(content)
                 .compensation(compensation)
-                .companyId(companyId)
+                .company(Company.builder()
+                        .id(companyId)
+                        .build())
                 .build();
     }
 
@@ -49,7 +51,9 @@ public class Recruit {
                 .stack(stack)
                 .content(content)
                 .compensation(compensation)
-                .companyId(this.companyId)
+                .company(Company.builder()
+                        .id(this.company.getId())
+                        .build())
                 .build();
     }
 

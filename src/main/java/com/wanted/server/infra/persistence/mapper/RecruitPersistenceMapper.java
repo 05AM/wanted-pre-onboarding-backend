@@ -6,8 +6,13 @@ import com.wanted.server.domain.recruit.Recruit;
 import com.wanted.server.infra.persistence.jpa.entity.CompanyEntity;
 import com.wanted.server.infra.persistence.jpa.entity.RecruitEntity;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class RecruitPersistenceMapper {
+
+    private final CompanyPersistenceMapper companyPersistenceMapper;
 
     public RecruitEntity toEntity(Recruit domain) {
         return RecruitEntity.builder()
@@ -17,7 +22,7 @@ public class RecruitPersistenceMapper {
                 .content(domain.getContent())
                 .compensation(domain.getCompensation())
                 .company(CompanyEntity.builder()
-                        .id(domain.getCompanyId())
+                        .id(domain.getCompany().getId())
                         .build())
                 .build();
     }
@@ -29,7 +34,7 @@ public class RecruitPersistenceMapper {
                 .stack(entity.getStack())
                 .content(entity.getContent())
                 .compensation(entity.getCompensation())
-                .companyId(entity.getCompany().getId())
+                .company(companyPersistenceMapper.toDomain(entity.getCompany()))
                 .build();
     }
 }

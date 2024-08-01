@@ -24,4 +24,8 @@ public class CompanyEntity {
     private Long id;
 
     private String name;
+
+    private String nation;
+
+    private String region;
 }
