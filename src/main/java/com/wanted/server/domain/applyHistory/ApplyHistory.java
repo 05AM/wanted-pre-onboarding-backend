@@ -19,4 +19,15 @@ public class ApplyHistory {
     private User user;
     private Recruit recruit;
     private LocalDateTime createdAt;
+
+    public static ApplyHistory record(Long userId, Long recruitId) {
+        return ApplyHistory.builder()
+                .user(User.builder()
+                        .id(userId)
+                        .build())
+                .recruit(Recruit.builder()
+                        .id(recruitId)
+                        .build())
+                .build();
+    }
 }
