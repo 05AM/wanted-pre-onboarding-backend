@@ -12,9 +12,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecruitCreateService {
 
+    private final CompanyValidationService companyValidationService;
     private final RecruitRepository recruitRepository;
 
     public void create(RecruitCreateCommand command) {
+        companyValidationService.validateCompanyExist(command.companyId());
+
         Recruit created = Recruit.create(
                 command.position(),
                 command.stack(),
