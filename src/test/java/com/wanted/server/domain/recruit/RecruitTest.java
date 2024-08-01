@@ -7,12 +7,14 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.wanted.server.application.service.command.RecruitCreateCommand;
+import com.wanted.server.common.exception.model.ValidationException;
+import com.wanted.server.common.response.StatusCode;
 import com.wanted.server.stub.RecruitStub;
 import com.wanted.server.template.UnitTest;
 
 class RecruitTest extends UnitTest {
 
-    @DisplayName("채용공고 도메인 테스트")
+    @DisplayName("채용공고 생성 테스트")
     @Nested
     class Create {
 
@@ -34,6 +36,21 @@ class RecruitTest extends UnitTest {
             assertThat(recruit.getContent()).isEqualTo(command.content());
             assertThat(recruit.getCompensation()).isEqualTo(command.compensation());
             assertThat(recruit.getCompanyId()).isEqualTo(command.companyId());
+        }
+
+        @DisplayName("[실패] 보상금 금액이 0보다 작은 경우 채용공고 생성에 실패한다.")
+        @Test
+        void fail_create_when_compensation_lesser_than_zero() {
+            RecruitCreateCommand command = RecruitStub.getRecruitCreateCommand();
+
+            assertThatThrownBy(() ->
+                    Recruit.create(
+                            command.position(),
+                            command.stack(),
+                            command.content(),
+                            -1,
+                            command.companyId())
+            ).isInstanceOf(ValidationException.class).hasMessage(StatusCode.INVALID_COMPENSATION_ERROR.getMessage());
         }
     }
 }
