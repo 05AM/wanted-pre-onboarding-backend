@@ -1,5 +1,7 @@
 package com.wanted.server.infra.persistence;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.wanted.server.common.exception.model.NotExistException;
@@ -26,6 +28,13 @@ public class RecruitRepositoryImpl implements RecruitRepository {
                 .orElseThrow(() -> new NotExistException(StatusCode.RECRUIT_NOT_FOUND_ERROR));
 
         return mapper.toDomain(recruitEntity);
+    }
+
+    @Override
+    public List<Recruit> findByCompanyId(Long companyId) {
+        return jpaRecruitRepository.findByCompanyId(companyId).stream()
+                .map(mapper::toDomain)
+                .toList();
     }
 
     @Override
