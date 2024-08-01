@@ -1,0 +1,75 @@
+package com.wanted.server.common.exception.handler;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.wanted.server.common.exception.model.BusinessException;
+import com.wanted.server.common.response.ApiResponse;
+import com.wanted.server.common.response.StatusCode;
+
+import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    private static final String ERROR_LOG_MESSAGE = "[ERROR] {} : {}";
+    private static final String WARN_LOG_MESSAGE = "[WARN] {} : {}";
+
+    @ExceptionHandler(BusinessException.class)
+    protected ResponseEntity<ApiResponse<Void>> handleBusinessException(final BusinessException e) {
+        log.warn(WARN_LOG_MESSAGE, e.getClass().getSimpleName(), e.getMessage());
+        e.printStackTrace();
+
+        StatusCode statusCode = e.getStatusCode();
+
+        return ResponseEntity.status(statusCode.getHttpStatus())
+                .body(ApiResponse.of(statusCode));
+    }
+
+    @ExceptionHandler(Exception.class)
+    protected ResponseEntity<ApiResponse<Void>> handleException(final Exception e) {
+        log.error(ERROR_LOG_MESSAGE, e.getClass().getSimpleName(), e.getMessage());
+        e.printStackTrace();
+
+        return ResponseEntity.internalServerError()
+                .body(ApiResponse.of(StatusCode.INTERNAL_SERVER_ERROR));
+    }
+
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiResponse<Map<String, String>>> handleConstraintViolationException(ConstraintViolationException e) {
+        Map<String, String> errors = new HashMap<>();
+
+        e.getConstraintViolations().forEach(violation -> {
+            String propertyPath = violation.getPropertyPath().toString();
+            String message = violation.getMessage();
+            errors.put(propertyPath, message);
+        });
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.of(StatusCode.BAD_REQUEST, errors));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationExceptions(MethodArgumentNotValidException e) {
+        Map<String, String> errors = new HashMap<>();
+
+        e.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.of(StatusCode.BAD_REQUEST, errors));
+    }
+}

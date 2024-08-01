@@ -10,7 +10,20 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum StatusCode {
 
-    ;
+    /**
+     * 201
+     */
+    CREATE_SUCCESS(HttpStatus.CREATED, "리소스가 성공적으로 생성되었습니다."),
+
+    /**
+     * 400
+     */
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+
+    /**
+     * 500
+     */
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부에서 에러가 발생하였습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
