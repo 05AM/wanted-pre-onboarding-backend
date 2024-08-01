@@ -38,6 +38,11 @@ public class RecruitRepositoryImpl implements RecruitRepository {
     }
 
     @Override
+    public boolean existById(Long id) {
+        return jpaRecruitRepository.existsById(id);
+    }
+
+    @Override
     public void save(Recruit recruit) {
         RecruitEntity recruitEntity = mapper.toEntity(recruit);
 
