@@ -2,6 +2,9 @@ package com.wanted.server.domain.recruit;
 
 import java.time.LocalDateTime;
 
+import com.wanted.server.common.exception.model.ValidationException;
+import com.wanted.server.common.response.StatusCode;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +22,8 @@ public class Recruit {
 
     @Builder(access = AccessLevel.PRIVATE)
     private Recruit(String position, String stack, String content, Integer compensation, Long companyId) {
+        validateCompensationMin(compensation);
+
         this.position = position;
         this.stack = stack;
         this.content = content;
@@ -34,5 +39,11 @@ public class Recruit {
                 .compensation(compensation)
                 .companyId(companyId)
                 .build();
+    }
+
+    private void validateCompensationMin(Integer compensation) {
+        if (compensation < 0) {
+            throw new ValidationException(StatusCode.INVALID_COMPENSATION_ERROR);
+        }
     }
 }

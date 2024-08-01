@@ -19,6 +19,7 @@ public enum StatusCode {
      * 400
      */
     BAD_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+    INVALID_COMPENSATION_ERROR(HttpStatus.BAD_REQUEST, "보상금 금액은 0보다 작을 수 없습니다."),
 
     /**
      * 404
