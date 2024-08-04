@@ -1,6 +1,7 @@
-package com.wanted.server.application;
+package com.wanted.server.application.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wanted.server.application.service.ApplyHistoryValidationService;
 import com.wanted.server.application.service.RecruitValidationService;
