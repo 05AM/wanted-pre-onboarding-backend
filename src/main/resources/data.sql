@@ -1,5 +1,5 @@
 -- 유저
-INSERT IGNORE INTO `user` (`id`, `name`) VALUES
+INSERT IGNORE INTO `member` (`id`, `name`) VALUES
 (1, '이찬미');
 
 -- 회사

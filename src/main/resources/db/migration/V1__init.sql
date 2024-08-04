@@ -12,7 +12,7 @@ CREATE TABLE `recruit`
 CREATE TABLE `apply_history`
 (
     `id`         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `user_id`    BIGINT    NOT NULL,
+    `member_id`    BIGINT    NOT NULL,
     `recruit_id` BIGINT    NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -25,7 +25,7 @@ CREATE TABLE `company`
     `region` VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE `user`
+CREATE TABLE `member`
 (
     `id`   BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(50) NOT NULL
@@ -33,7 +33,7 @@ CREATE TABLE `user`
 
 ALTER TABLE
     `apply_history`
-    ADD CONSTRAINT `apply_history_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+    ADD CONSTRAINT `apply_history_member_id_foreign` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`);
 ALTER TABLE
     `apply_history`
     ADD CONSTRAINT `apply_history_recruit_id_foreign` FOREIGN KEY (`recruit_id`) REFERENCES `recruit` (`id`);
