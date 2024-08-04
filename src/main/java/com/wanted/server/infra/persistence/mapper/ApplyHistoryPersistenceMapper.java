@@ -4,21 +4,21 @@ import org.springframework.stereotype.Component;
 
 import com.wanted.server.domain.applyHistory.ApplyHistory;
 import com.wanted.server.infra.persistence.jpa.entity.ApplyHistoryEntity;
-
-import lombok.RequiredArgsConstructor;
+import com.wanted.server.infra.persistence.jpa.entity.MemberEntity;
+import com.wanted.server.infra.persistence.jpa.entity.RecruitEntity;
 
 @Component
-@RequiredArgsConstructor
 public class ApplyHistoryPersistenceMapper {
-
-    private final MemberPersistenceMapper memberPersistenceMapper;
-    private final RecruitPersistenceMapper recruitPersistenceMapper;
 
     public ApplyHistoryEntity toEntity(ApplyHistory domain) {
         return ApplyHistoryEntity.builder()
                 .id(domain.getId())
-                .member(memberPersistenceMapper.toEntity(domain.getMember()))
-                .recruit(recruitPersistenceMapper.toEntity(domain.getRecruit()))
+                .member(MemberEntity.builder()
+                        .id(domain.getMember().getId())
+                        .build())
+                .recruit(RecruitEntity.builder()
+                        .id(domain.getRecruit().getId())
+                        .build())
                 .build();
     }
 }

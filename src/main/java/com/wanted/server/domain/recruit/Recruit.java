@@ -22,8 +22,6 @@ public class Recruit {
 
     @Builder
     private Recruit(Long id, String position, String stack, String content, Integer compensation, Company company) {
-        validateCompensationMin(compensation);
-
         this.id = id;
         this.position = position;
         this.stack = stack;
@@ -33,6 +31,8 @@ public class Recruit {
     }
 
     public static Recruit create(String position, String stack, String content, Integer compensation, Long companyId) {
+        validateCompensationMin(compensation);
+
         return Recruit.builder()
                 .position(position)
                 .stack(stack)
@@ -45,6 +45,8 @@ public class Recruit {
     }
 
     public Recruit update(String position, String stack, String content, Integer compensation) {
+        validateCompensationMin(compensation);
+
         return Recruit.builder()
                 .id(this.id)
                 .position(position)
@@ -57,8 +59,8 @@ public class Recruit {
                 .build();
     }
 
-    private void validateCompensationMin(Integer compensation) {
-        if (compensation < 0) {
+    private static void validateCompensationMin(Integer compensation) {
+        if (compensation == null || compensation < 0) {
             throw new ValidationException(StatusCode.INVALID_COMPENSATION_ERROR);
         }
     }
