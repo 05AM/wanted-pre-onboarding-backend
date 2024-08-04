@@ -3,9 +3,6 @@ package com.wanted.server.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wanted.server.application.service.ApplyHistoryValidationService;
-import com.wanted.server.application.service.RecruitValidationService;
-import com.wanted.server.application.service.MemberValidationService;
 import com.wanted.server.application.service.command.ApplyHistoryCreateCommand;
 import com.wanted.server.domain.applyHistory.ApplyHistory;
 import com.wanted.server.domain.repository.ApplyHistoryRepository;
@@ -28,7 +25,7 @@ public class ApplyService {
         recruitValidationService.validateRecruitExist(command.recruitId());
         applyHistoryValidationService.validateUserAppliedAlready(command.memberId(), command.recruitId());
 
-        ApplyHistory recorded = ApplyHistory.record(command.memberId(), command.recruitId());
+        ApplyHistory recorded = ApplyHistory.create(command.memberId(), command.recruitId());
         applyHistoryRepository.save(recorded);
     }
 }
