@@ -5,6 +5,9 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.wanted.server.application.service.command.RecruitCreateCommand;
 import com.wanted.server.application.service.command.RecruitUpdateCommand;
@@ -36,12 +39,14 @@ class RecruitTest extends UnitTest {
             assertThat(recruit.getStack()).isEqualTo(command.stack());
             assertThat(recruit.getContent()).isEqualTo(command.content());
             assertThat(recruit.getCompensation()).isEqualTo(command.compensation());
-            assertThat(recruit.getCompanyId()).isEqualTo(command.companyId());
+            assertThat(recruit.getCompany().getId()).isEqualTo(command.companyId());
         }
 
-        @DisplayName("[실패] 보상금 금액이 0보다 작은 경우 채용공고 생성에 실패한다.")
-        @Test
-        void fail_create_when_compensation_lesser_than_zero() {
+        @DisplayName("[실패] 합격 보상금이 null이거나 금액이 0보다 작은 경우 채용공고 생성에 실패한다.")
+        @ParameterizedTest
+        @NullSource
+        @ValueSource(ints = { -1, Integer.MIN_VALUE })
+        void fail_create_when_compensation_is_null_or_lesser_than_zero(Integer compensation) {
             RecruitCreateCommand command = RecruitStub.getRecruitCreateCommand();
 
             assertThatThrownBy(() ->
@@ -49,7 +54,7 @@ class RecruitTest extends UnitTest {
                             command.position(),
                             command.stack(),
                             command.content(),
-                            -1,
+                            compensation,
                             command.companyId())
             ).isInstanceOf(ValidationException.class).hasMessage(StatusCode.INVALID_COMPENSATION_ERROR.getMessage());
         }
@@ -90,6 +95,23 @@ class RecruitTest extends UnitTest {
                             command.stack(),
                             command.content(),
                             -1)
+            ).isInstanceOf(ValidationException.class).hasMessage(StatusCode.INVALID_COMPENSATION_ERROR.getMessage());
+        }
+
+        @DisplayName("[실패] 합격 보상금이 null이거나 금액이 0보다 작은 경우 채용공고 수정에 실패한다.")
+        @ParameterizedTest
+        @NullSource
+        @ValueSource(ints = { -1, Integer.MIN_VALUE })
+        void fail_create_when_compensation_is_null_or_lesser_than_zero(Integer compensation) {
+            RecruitUpdateCommand command = RecruitStub.getRecruitUpdateCommand();
+            Recruit recruit = RecruitStub.getRecruit();
+
+            assertThatThrownBy(() ->
+                    recruit.update(
+                            command.position(),
+                            command.stack(),
+                            command.content(),
+                            compensation)
             ).isInstanceOf(ValidationException.class).hasMessage(StatusCode.INVALID_COMPENSATION_ERROR.getMessage());
         }
     }
