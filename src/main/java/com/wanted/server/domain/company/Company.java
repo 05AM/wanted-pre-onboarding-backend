@@ -10,8 +10,8 @@ import lombok.Getter;
 @Getter
 public class Company {
 
-    private Long id;
-    private String name;
-    private String nation;
-    private String region;
+    private final Long id;
+    private final String name;
+    private final String nation;
+    private final String region;
 }

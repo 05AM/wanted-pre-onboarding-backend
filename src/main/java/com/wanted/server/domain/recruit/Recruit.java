@@ -12,13 +12,13 @@ import lombok.Getter;
 @Getter
 public class Recruit {
 
-    private Long id;
-    private String position;
-    private String stack;
-    private String content;
-    private Integer compensation;
+    private final Long id;
+    private final String position;
+    private final String stack;
+    private final String content;
+    private final Integer compensation;
     private LocalDateTime createdAt;
-    private Company company;
+    private final Company company;
 
     @Builder
     private Recruit(Long id, String position, String stack, String content, Integer compensation, Company company) {

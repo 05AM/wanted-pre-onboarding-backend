@@ -10,6 +10,6 @@ import lombok.Getter;
 @Getter
 public class Member {
 
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
 }

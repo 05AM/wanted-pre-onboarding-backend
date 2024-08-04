@@ -15,9 +15,9 @@ import lombok.Getter;
 @Getter
 public class ApplyHistory {
 
-    private Long id;
-    private Member member;
-    private Recruit recruit;
+    private final Long id;
+    private final Member member;
+    private final Recruit recruit;
     private LocalDateTime createdAt;
 
     public static ApplyHistory record(Long userId, Long recruitId) {
