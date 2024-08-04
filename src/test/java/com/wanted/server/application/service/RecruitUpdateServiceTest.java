@@ -29,6 +29,9 @@ class RecruitUpdateServiceTest extends UnitTest {
         @Test
         void success() {
             RecruitUpdateCommand command = RecruitStub.getRecruitUpdateCommand();
+            given(recruitRepository.findById(anyLong()))
+                    .willReturn(RecruitStub.getRecruit());
+
             recruitUpdateService.update(command);
 
             then(recruitRepository).should().save(any());
