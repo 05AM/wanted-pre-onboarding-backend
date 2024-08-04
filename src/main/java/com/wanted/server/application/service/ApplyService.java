@@ -20,7 +20,7 @@ public class ApplyService {
 
     private final ApplyHistoryRepository applyHistoryRepository;
 
-    public void create(ApplyHistoryCreateCommand command) {
+    public void apply(ApplyHistoryCreateCommand command) {
         memberValidationService.validateUserExist(command.memberId());
         recruitValidationService.validateRecruitExist(command.recruitId());
         applyHistoryValidationService.validateUserAppliedAlready(command.memberId(), command.recruitId());

@@ -20,10 +20,10 @@ public class ApplyHistory {
     private final Recruit recruit;
     private LocalDateTime createdAt;
 
-    public static ApplyHistory create(Long userId, Long recruitId) {
+    public static ApplyHistory create(Long memberId, Long recruitId) {
         return ApplyHistory.builder()
                 .member(Member.builder()
-                        .id(userId)
+                        .id(memberId)
                         .build())
                 .recruit(Recruit.builder()
                         .id(recruitId)
