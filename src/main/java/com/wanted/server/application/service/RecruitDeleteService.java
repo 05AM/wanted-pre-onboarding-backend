@@ -1,6 +1,7 @@
 package com.wanted.server.application.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wanted.server.domain.recruit.Recruit;
 import com.wanted.server.domain.repository.RecruitRepository;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class RecruitDeleteService {
 
     private final RecruitRepository recruitRepository;

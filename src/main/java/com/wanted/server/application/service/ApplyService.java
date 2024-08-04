@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ApplyService {
 
     private final ApplyHistoryValidationService applyHistoryValidationService;
@@ -31,3 +32,4 @@ public class ApplyService {
         applyHistoryRepository.save(recorded);
     }
 }
+

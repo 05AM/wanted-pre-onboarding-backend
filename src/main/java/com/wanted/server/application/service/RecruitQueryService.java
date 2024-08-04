@@ -3,6 +3,7 @@ package com.wanted.server.application.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wanted.server.domain.recruit.Recruit;
 import com.wanted.server.domain.repository.RecruitRepository;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RecruitQueryService {
 
     private final RecruitRepository recruitRepository;

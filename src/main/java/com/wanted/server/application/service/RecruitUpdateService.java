@@ -1,6 +1,7 @@
 package com.wanted.server.application.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wanted.server.application.service.command.RecruitUpdateCommand;
 import com.wanted.server.domain.recruit.Recruit;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class RecruitUpdateService {
 
     private final RecruitRepository recruitRepository;

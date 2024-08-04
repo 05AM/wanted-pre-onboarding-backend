@@ -1,6 +1,7 @@
 package com.wanted.server.application.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wanted.server.common.exception.model.NotExistException;
 import com.wanted.server.common.response.StatusCode;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CompanyValidationService {
 
     private final CompanyRepository companyRepository;
