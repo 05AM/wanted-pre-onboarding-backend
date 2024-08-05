@@ -1,5 +1,8 @@
 package com.wanted.server.infra.web;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wanted.server.application.service.RecruitCreateService;
@@ -22,6 +26,7 @@ import com.wanted.server.common.response.StatusCode;
 import com.wanted.server.infra.web.dto.request.RecruitCreateRequest;
 import com.wanted.server.infra.web.dto.request.RecruitUpdateRequest;
 import com.wanted.server.infra.web.dto.response.RecruitDetailResponse;
+import com.wanted.server.infra.web.dto.response.RecruitSearchResult;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -43,6 +48,22 @@ public class RecruitController {
     private final RecruitCreateService recruitCreateService;
     private final RecruitUpdateService recruitUpdateService;
     private final RecruitDeleteService recruitDeleteService;
+
+    @Operation(summary = "채용공고 검색")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content)})
+    @GetMapping
+    public ResponseEntity<ApiResponseDto<RecruitSearchResult>> search(
+        @Parameter(description = "검색어") @RequestParam(name = "search", required = false) String keyword,
+        @Parameter(name = "pageable", description = "페이지 정보")
+        @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+        Pageable pageable
+    ) {
+        RecruitSearchResult response = recruitQueryService.search(keyword, pageable);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ApiResponseDto.of(StatusCode.GET_SUCCESS, response));
+    }
 
     @Operation(summary = "채용공고 상세 조회")
     @ApiResponses(value = {
