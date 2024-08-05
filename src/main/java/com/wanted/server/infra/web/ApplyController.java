@@ -29,7 +29,7 @@ public class ApplyController {
 
     private final ApplyService applyService;
 
-    @Operation(summary = "채용공고 지원")
+    @Operation(summary = "지원")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "생성 성공", content = @Content),
             @ApiResponse(responseCode = "400", description = "유효하지 않은 요청", content = @Content),

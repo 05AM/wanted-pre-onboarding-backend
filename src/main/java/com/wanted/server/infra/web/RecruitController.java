@@ -49,7 +49,7 @@ public class RecruitController {
     private final RecruitUpdateService recruitUpdateService;
     private final RecruitDeleteService recruitDeleteService;
 
-    @Operation(summary = "채용공고 검색")
+    @Operation(summary = "검색", description = "정렬 기본값: `createdAt` (생략 가능)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content)})
     @GetMapping
@@ -65,7 +65,7 @@ public class RecruitController {
                 .body(ApiResponseDto.of(StatusCode.GET_SUCCESS, response));
     }
 
-    @Operation(summary = "채용공고 상세 조회")
+    @Operation(summary = "상세 조회")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content),
             @ApiResponse(responseCode = "404", description = "존재하지 않는 채용공고", content = @Content)})
@@ -79,7 +79,7 @@ public class RecruitController {
                 .body(ApiResponseDto.of(StatusCode.GET_SUCCESS, response));
     }
 
-    @Operation(summary = "채용공고 생성")
+    @Operation(summary = "생성")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "생성 성공", content = @Content),
             @ApiResponse(responseCode = "400", description = "유효하지 않은 요청", content = @Content),
@@ -102,7 +102,7 @@ public class RecruitController {
                 .body(ApiResponseDto.of(StatusCode.CREATE_SUCCESS));
     }
 
-    @Operation(summary = "채용공고 수정")
+    @Operation(summary = "수정")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "수정 성공", content = @Content),
             @ApiResponse(responseCode = "400", description = "유효하지 않은 요청", content = @Content)})
@@ -125,7 +125,7 @@ public class RecruitController {
                 .body(ApiResponseDto.of(StatusCode.UPDATE_SUCCESS));
     }
 
-    @Operation(summary = "채용공고 삭제")
+    @Operation(summary = "삭제")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "삭제 성공", content = @Content),
             @ApiResponse(responseCode = "400", description = "유효하지 않은 요청", content = @Content),
