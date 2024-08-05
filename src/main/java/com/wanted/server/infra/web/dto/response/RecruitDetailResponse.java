@@ -13,6 +13,7 @@ public record RecruitDetailResponse(
         String position,
         Integer compensation,
         String stack,
+        String content,
         List<Long> relateds
 ) {
 }

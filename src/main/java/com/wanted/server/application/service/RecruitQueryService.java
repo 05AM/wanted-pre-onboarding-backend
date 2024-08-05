@@ -37,6 +37,7 @@ public class RecruitQueryService {
                 .position(recruit.getPosition())
                 .compensation(recruit.getCompensation())
                 .stack(recruit.getStack())
+                .content(recruit.getContent())
                 .relateds(relatedIds)
                 .build();
     }
