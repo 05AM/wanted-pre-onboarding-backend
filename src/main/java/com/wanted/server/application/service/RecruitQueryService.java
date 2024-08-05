@@ -2,12 +2,18 @@ package com.wanted.server.application.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wanted.server.domain.recruit.Recruit;
 import com.wanted.server.domain.repository.RecruitRepository;
+import com.wanted.server.domain.repository.RecruitSearchRepository;
+import com.wanted.server.infra.web.dto.response.PageInfo;
 import com.wanted.server.infra.web.dto.response.RecruitDetailResponse;
+import com.wanted.server.infra.web.dto.response.RecruitSearchResult;
+import com.wanted.server.infra.web.dto.response.RecruitSimpleResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class RecruitQueryService {
 
     private final RecruitRepository recruitRepository;
+    private final RecruitSearchRepository recruitSearchRepository;
 
     public RecruitDetailResponse getDetail(Long recruitId) {
         Recruit recruit = recruitRepository.findById(recruitId);
@@ -42,5 +49,19 @@ public class RecruitQueryService {
                 .mapToLong(Recruit::getId)
                 .boxed()
                 .toList();
+    }
+
+    public RecruitSearchResult search(String keyword, Pageable pageable) {
+        Page<RecruitSimpleResponse> result = recruitSearchRepository.search(keyword, pageable);
+
+        return RecruitSearchResult.builder()
+                .recruits(result.toList())
+                .pageInfo(PageInfo.builder()
+                        .page(pageable.getPageNumber())
+                        .size(pageable.getPageSize())
+                        .totalElements(result.getTotalElements())
+                        .totalPages(result.getTotalPages())
+                        .build())
+                .build();
     }
 }
