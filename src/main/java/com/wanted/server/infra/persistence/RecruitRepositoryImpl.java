@@ -2,21 +2,25 @@ package com.wanted.server.infra.persistence;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.wanted.server.common.exception.model.NotExistException;
 import com.wanted.server.common.response.StatusCode;
 import com.wanted.server.domain.recruit.Recruit;
 import com.wanted.server.domain.repository.RecruitRepository;
+import com.wanted.server.domain.repository.RecruitSearchRepository;
 import com.wanted.server.infra.persistence.jpa.entity.RecruitEntity;
 import com.wanted.server.infra.persistence.jpa.repository.JpaRecruitRepository;
 import com.wanted.server.infra.persistence.mapper.RecruitPersistenceMapper;
+import com.wanted.server.infra.web.dto.response.RecruitSimpleResponse;
 
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class RecruitRepositoryImpl implements RecruitRepository {
+public class RecruitRepositoryImpl implements RecruitRepository, RecruitSearchRepository {
 
     private final JpaRecruitRepository jpaRecruitRepository;
 
@@ -35,6 +39,13 @@ public class RecruitRepositoryImpl implements RecruitRepository {
         return jpaRecruitRepository.findByCompanyId(companyId).stream()
                 .map(mapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public Page<RecruitSimpleResponse> search(String keyword, Pageable pageable) {
+        return keyword == null
+                ? jpaRecruitRepository.search(pageable)
+                : jpaRecruitRepository.search(keyword, pageable);
     }
 
     @Override
